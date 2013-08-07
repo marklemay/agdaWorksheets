@@ -1,4 +1,4 @@
--- http://people.inf.elte.hu/divip/AgdaTutorial/Sets.Parameters_vs_Indices.html#1
+-- http://people.inf.elte.hu/divip/AgdaTutorial/Sets.Parameters_vs_Indices.html
 module Sets.Parameters_vs_Indices where
 
 open import Data.Nat using (ℕ; zero; suc; _≤_; z≤n; s≤s)
@@ -45,7 +45,6 @@ infix 4 _∈_
 
 -- Excercise: Define _⊆_ {A : Set} : List A → List A → Set!
 --TODO: is it ok that there are no paramiters?
---TODO: this still needs some work
 data _⊆_ {A : Set} : List A → List A → Set where
   first⊆ : ∀ {xs} → [] ⊆ xs
   later⊆ : ∀ {xs ys x} → x ∈ ys → xs ⊆ ys → x ∷ xs ⊆ ys
@@ -62,9 +61,30 @@ infix 4 _⊆_
 []⊆123 : [] ⊆ 1 ∷ 2 ∷ 3 ∷ []
 []⊆123 = first⊆
 
+1⊆123 : 1 ∷ [] ⊆ 1 ∷ 2 ∷ 3 ∷ []
+1⊆123 = (later⊆ 1∈123) []⊆123
+
 2⊆123 : 2 ∷ [] ⊆ 1 ∷ 2 ∷ 3 ∷ []
-2⊆123 = (first⊆ 2∈123) []⊆123
+2⊆123 = (later⊆ 2∈123) []⊆123
 
 -- Excercise: Prove that 1 ∷ 2 ∷ [] ⊆ 1 ∷ 2 ∷ 3 ∷ []!
 solution12⊆123 : 1 ∷ 2 ∷ [] ⊆ 1 ∷ 2 ∷ 3 ∷ []
 solution12⊆123 = (later⊆ 1∈123) ((later⊆ 2∈123) first⊆)
+
+--scratch:
+1∈12 : 1 ∈ 1 ∷ 2 ∷ []
+1∈12 = first
+
+2∈12 : 2 ∈ 1 ∷ 2 ∷ []
+2∈12 = later first
+
+
+-- Excercise: Prove that 1 ∷ 2 ∷ 3 ∷ [] ⊆ 1 ∷ 2 ∷ [] is false!
+
+data ⊥ : Set where --TODO: be cool and import this like a pro
+
+--solution123⊆12 : 1 ∷ 2 ∷ 3 ∷ [] ⊆ 1 ∷ 2 ∷ [] → ⊥
+--solution123⊆12 ( (later⊆ 1∈12) ((later⊆ 2∈12) ()))
+
+-- Excercise: TODO: Define a permutation predicate!
+-- Excercise: TODO: Define a sort predicate!
