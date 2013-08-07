@@ -1,3 +1,5 @@
+--http://people.inf.elte.hu/divip/AgdaTutorial/Functions.Dependent.html
+
 module Functions.Dependent where
 
 open import Data.Nat using (ℕ; zero; suc; _+_; z≤n; s≤s; _<_)
@@ -9,7 +11,7 @@ fromℕ : (n : ℕ) → Fin (suc n)
 fromℕ zero = zero  -- Note: different zeros
 fromℕ (suc n) = suc (fromℕ n)
 
---E:
+--Define a substraction with restricted domain:
 _-_ : (n : ℕ) → Fin (suc n) → ℕ
 n - zero = n
 (suc n) - (suc m) = n - m
