@@ -14,6 +14,9 @@ data Fin : ℕ → Set where
 
 -- TODO: Exercise: Define a Bool indexed family of sets such that the set indexed by false contains no elements and the set indexed by true contains one element!
 
+data Solution : Bool → Set where
+  s :  Solution true
+
 -- Exercise: Define a ℕ indexed family of sets such that the sets indexed by even numbers contain one element and the others are empty!
 data Fin1 : ℕ → Set where
   zerox : Fin1 0
