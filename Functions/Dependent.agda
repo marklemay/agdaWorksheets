@@ -18,3 +18,10 @@ n - zero = n
 --0 - zero = 0
 -- do I need to prove the contrediction of 0 - _ ?
 0 - _ = 0
+
+
+--- ...
+
+toℕ : ∀ {n} → Fin n → ℕ
+toℕ zero = 0
+toℕ (suc( n )) = suc( toℕ(n))
