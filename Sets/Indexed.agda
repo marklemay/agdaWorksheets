@@ -22,6 +22,7 @@ data Fin1 : ℕ → Set where
   zerox : Fin1 0
   sucx  : (n : ℕ) → Fin1 n → Fin1 (suc (suc n))
 
+-- scratch:
 ex : Fin1 0
 ex = zerox
 
@@ -32,6 +33,6 @@ data Vec (A : Set) : ℕ → Set where
   []  : Vec A zero
   cons : (n : ℕ) → A → Vec A n → Vec A (suc n)
 
--- Exercise: Define a Bool indexed family of sets with two parameters, A and B, such that the set indexed by false contains an A element and the set indexed by true contains a B element!
+-- Exercise: TODO: Define a Bool indexed family of sets with two parameters, A and B, such that the set indexed by false contains an A element and the set indexed by true contains a B element!
 
 
