@@ -2,3 +2,11 @@ possible Errata:
 in http://people.inf.elte.hu/divip/AgdaTutorial/Sets.Propositions.html#exercises-3
 -- exercise: Define _⊓_ : ℕ → ℕ → Set such that n ⊓ m ≡ k iff k is the minimum of n and m! 
 -- Souldn't it be _⊓_≡_ : ℕ → ℕ  → ℕ → Set like how the inhabited set of additions was defined.
+
+
+Unsolved Problems:
+http://people.inf.elte.hu/divip/AgdaTutorial/Sets.Indexed.html#exercise
+-- Exercise: TODO: Define a Bool indexed family of sets with two parameters, A and B, such that the set indexed by false contains an A element and the set indexed by true contains a B element!
+--data Solution3 (A B : Set) : Bool → Set where --I think this signature is right But I thought you couldn't take members of one type and put them in another
+
+
