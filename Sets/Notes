@@ -13,6 +13,7 @@ http://people.inf.elte.hu/divip/AgdaTutorial/Sets.Indexed.html#exercise
 --TODO: why won't this work?
 http://people.inf.elte.hu/divip/AgdaTutorial/Sets.Propositions.html#exercises-4
 https://github.com/marklemay/agdaWorksheets/blob/master/Sets/Propositions.agda
+http://stackoverflow.com/questions/18139523/what-is-the-correct-syntax-for-proving-a-type-empty-in-agda
 
 1*3≡3 : 1 * 3 ≡ 3
 1*3≡3 = (succ base) znn
