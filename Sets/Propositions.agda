@@ -21,6 +21,8 @@ data _⊎_ (A B : Set) : Set where
 
 infixr 1 _⊎_
 
+-- Excersise: Construct one proof for each proposition if possible:
+
 e1 : ⊤ × ⊤
 e1 = tt , tt
 
@@ -45,7 +47,6 @@ test =  inj₂ (inj₁ tt)
 e7 : ⊥ ⊎ ⊤ ⊎ ⊤ × (⊥ ⊎ ⊥) ⊎ ⊤
 -- × is lower precidence then ⊎
 e7 = inj₂ (inj₁ tt)
--- TODO: more excersices!  these are interesting
 
 data  _≤_ : ℕ → ℕ → Set where
   z≤n : {n : ℕ} →                       zero  ≤ n
@@ -57,22 +58,22 @@ infix 4 _≤_
 0≤1 : 1 ≤ 10
 0≤1 = s≤s z≤n
 
--- excersise
+-- Excersise: Prove that 3 ≤ 7!
 3≤7 : 3 ≤ 7
 3≤7 = s≤s (s≤s (s≤s z≤n))
 
 7≰3 : 7 ≤ 3 → ⊥
 7≰3 (s≤s (s≤s (s≤s ())))
 
--- excersise,  there is something going on syntacticly that I just don't get, where's the where?
--- TODO: how are you assuered this cannot be constructed by other means.
+-- Excersise,  there is something going on syntacticly that I just don't get, where's the where?
+-- "how are you assuered this cannot be constructed by other means."
 4≰2 : 4 ≤ 2 → ⊥
-4≰2 (s≤s (s≤s ())) -- this is a form of pattern matching, adding constructors prevents this from typechecking
+4≰2 (s≤s (s≤s ())) -- "this is a form of pattern matching, adding constructors prevents this from typechecking"
 
 8≰4 : 8 ≤ 4 → ⊥
 8≰4 (s≤s x) = 7≰3 x
 
--- excersise
+-- Excersise: Define an indexed set _isDoubleOf_ : ℕ → ℕ → Set such that m isDoubleOf n is non-empty iff m is the double of n!
 data _isDoubleOf_ : ℕ → ℕ → Set where
   zisDoubleOfz : zero isDoubleOf zero
   ssisDoubleOfs : {m : ℕ} → {n : ℕ} →   m isDoubleOf n  →  suc (suc m) isDoubleOf suc n
@@ -94,7 +95,7 @@ infix 4 _isDoubleOf_
 9isDoubleOf4 : 9 isDoubleOf 4 → ⊥
 9isDoubleOf4 (ssisDoubleOfs (ssisDoubleOfs (ssisDoubleOfs (ssisDoubleOfs () ))))
 
--- excersise
+-- excersise: Define an indexed set Odd : ℕ → Set such that odd n is non-empty iff n is odd! 
 data Odd : ℕ → Set where
   odd1 : Odd 1
   oddss : {n : ℕ} → Odd n → Odd (suc (suc n))
@@ -279,7 +280,6 @@ d94 : 9 isDoubleOf' 4 → ⊥
 d94 (npnem (sns (sns (sns (sns  ())))))
 
 -- exercise: Define _*_≡_ : ℕ → ℕ → Set with the help of _+_≡_!
--- TODO: best way to use it?
 data _*_≡_ : ℕ → ℕ → ℕ → Set where
   base : ∀ {n} → 0 * n ≡ 0
   succ : ∀ {n m k j} → m * n ≡ j → j + n ≡ k → suc m * n ≡ k
@@ -288,7 +288,7 @@ data _*_≡_ : ℕ → ℕ → ℕ → Set where
 m900 : 0 * 9 ≡ 0
 m900 = base
 
---add1p2e3 : 1 +  ≡ 3
+--add1p2e3 : 1 + 2 ≡ 3 --already defined
 --add1p2e3 = sns znn
 
 m911 : 1 * 9 ≡ 9
@@ -315,9 +315,12 @@ m911 = (succ base) znn
 m132 : 1 * 3 ≡ 2 → ⊥
 m132 ((succ base) ())
 
+3+3≡5 : 3 + 3 ≡ 5 → ⊥
+3+3≡5 (sns (sns (sns ())))
+
 --TODO: why won't this work?
---m235 : 2 * 3 ≡ 5 → ⊥
---m235 (succ (m132 x) 2+3≡5 ) = x
+m235 : 2 * 3 ≡ 5 → ⊥
+m235 ( ( succ  1*3≡3 ) ( x ) ) = ( 3+3≡5 x )
 
 m1*1≡10 : 1 * 1 ≡ 10 → ⊥
 m1*1≡10 ((succ base) ())
