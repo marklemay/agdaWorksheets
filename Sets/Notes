@@ -1,0 +1,4 @@
+possible Errata:
+in http://people.inf.elte.hu/divip/AgdaTutorial/Sets.Propositions.html#exercises-3
+-- exercise: Define _⊓_ : ℕ → ℕ → Set such that n ⊓ m ≡ k iff k is the minimum of n and m! 
+-- Souldn't it be _⊓_≡_ : ℕ → ℕ  → ℕ → Set like how the inhabited set of additions was defined.
