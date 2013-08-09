@@ -12,7 +12,7 @@ data Fin : ℕ → Set where
   zero : (n : ℕ) → Fin (suc n)
   suc  : (n : ℕ) → Fin n → Fin (suc n)
 
--- TODO: Exercise: Define a Bool indexed family of sets such that the set indexed by false contains no elements and the set indexed by true contains one element!
+-- Exercise: Define a Bool indexed family of sets such that the set indexed by false contains no elements and the set indexed by true contains one element!
 
 data Solution : Bool → Set where
   s :  Solution true
@@ -35,4 +35,5 @@ data Vec (A : Set) : ℕ → Set where
 
 -- Exercise: TODO: Define a Bool indexed family of sets with two parameters, A and B, such that the set indexed by false contains an A element and the set indexed by true contains a B element!
 
-
+--data Solution3 (A B : Set) : Bool → Set where --I think this signature is right But I thought you couldn't take members of one type and put them in another
+--  s : (a : A) → Solution3 false
