@@ -10,3 +10,20 @@ http://people.inf.elte.hu/divip/AgdaTutorial/Sets.Indexed.html#exercise
 --data Solution3 (A B : Set) : Bool → Set where --I think this signature is right But I thought you couldn't take members of one type and put them in another
 
 
+--TODO: why won't this work?
+http://people.inf.elte.hu/divip/AgdaTutorial/Sets.Propositions.html#exercises-4
+https://github.com/marklemay/agdaWorksheets/blob/master/Sets/Propositions.agda
+
+1*3≡3 : 1 * 3 ≡ 3
+1*3≡3 = (succ base) znn
+
+3+3≡5 : 3 + 3 ≡ 5 → ⊥
+3+3≡5 (sns (sns (sns ())))
+
+--TODO: why won't this work?
+m235 : 2 * 3 ≡ 5 → ⊥
+m235 ( ( succ  1*3≡3 ) ( x ) ) = ( 3+3≡5 x )
+
+spits out:
+.j != (suc 2) of type ℕ
+when checking that the expression x has type 3 + 3 ≡ 5
