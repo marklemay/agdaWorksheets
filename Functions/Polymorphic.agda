@@ -25,7 +25,16 @@ toList   : ℕ → List ⊤
 toList 0 = []
 toList (suc x) = tt ∷ (toList x)
 
---TODO other excercise
+--Exercise: Define a Maybe set (lists with 0 or 1 elements) and head and tail functions for the polymorphic List type with the help of Maybe.
+data Maybe (A : Set) : Set where
+ n : Maybe A
+ y : A → Maybe A
+
+head : {A : Set} → List A → Maybe A
+head (a ∷ _) = y a
+head _ = n
+
+--TODO: tail
 
 --Exercise: Define the following functions on lists:
 
@@ -39,6 +48,7 @@ map _ [] = []
 --Exercise: Define the singleton list function:
 [_] : {A : Set} → A → List A
 [ x ] = x ∷ []
+
 
 id : {A : Set} → A → A
 id a = a
@@ -74,7 +84,9 @@ data _⊎_ (A B : Set) : Set where
 infixr 1 _⊎_
 
 --Exercise: Define a function which swaps the two elements!
---TODO:  this is fucking impossible right?
+swap' : { A B : Set } → A ⊎ B → B ⊎ A
+swap' (inj₁ x) = inj₂ x
+swap' (inj₂ x) = inj₁ x
 
 --Exercise: Define the eliminator function for disjoint union:
 [_,_] : {A B C : Set} → (A → C) → (B → C) → (A ⊎ B → C)

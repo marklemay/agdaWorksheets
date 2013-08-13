@@ -142,7 +142,8 @@ infix 4 _≡_
 e00 : 0 ≡ 0
 e00 = z≡z
 
--- TODO why won't the following work?
+-- why won't the following work?
+-- Answer: it thinks it's a floating point
 -- 0e0 : 0 ≡ 0
 -- 0e0 = z≡z
 
@@ -295,7 +296,7 @@ m911 : 1 * 9 ≡ 9
 m911 = (succ base) znn
 
 1*3≡3 : 1 * 3 ≡ 3
-1*3≡3 = (succ base) znn
+1*3≡3 = succ base znn
 
 3+3≡6 : 3 + 3 ≡ 6
 3+3≡6 = sns (sns (sns znn))
@@ -318,9 +319,10 @@ m132 ((succ base) ())
 3+3≡5 : 3 + 3 ≡ 5 → ⊥
 3+3≡5 (sns (sns (sns ())))
 
---TODO: why won't this work?
 m235 : 2 * 3 ≡ 5 → ⊥
-m235 ( ( succ  1*3≡3 ) ( x ) ) = ( 3+3≡5 x )
+m235 ( ( succ  (succ base znn) ) x ) = 3+3≡5 x
+--TODO: why won't this work?
+--m235 ( ( succ  (1*3≡3) ) x ) = 3+3≡5 x
 
 m1*1≡10 : 1 * 1 ≡ 10 → ⊥
 m1*1≡10 ((succ base) ())
@@ -331,26 +333,52 @@ m1*1≡10 ((succ base) ())
 0+9≡9 : 0 + 9 ≡ 9
 0+9≡9 = znn
 
---TODO: why won't this work
---m2*1≡10 : 1 * 1 ≡ 10 → ⊥
---m2*1≡10 ((succ ((succ base) ())) 1+9≡10)
---m2*1≡10 (succ ((succ ()) 0+9≡9) 1+9≡10)
---m2*1≡10 ((succ ()) 1+9≡10)
+0+1≡10 : 0 + 1 ≡ 10 → ⊥
+0+1≡10 ()
+
+---TODO: why won't this work
+m2*1≡10 : 1 * 1 ≡ 10 → ⊥
+m2*1≡10 (succ base y) = 0+1≡10 y
 
 -- exercise: Prove that 3 * 3 ≡ 9 is non-empty!
 m339 : 3 * 3 ≡ 9
 m339 = succ ((succ 1*3≡3) 3+3≡6) 6+3≡9
 
--- exercise: Prove that 3 * 3 ≡ 8 is empty!
---m338 : 3 * 3 ≡ 8 → ⊥
---m338 3 * 3 ≡ 8
+-- Exercise: Prove that 3 * 3 ≡ 8 is empty!
+m338 : 3 * 3 ≡ 8 → ⊥
+m338 (succ (succ (succ base znn) (sns (sns (sns znn)))) (sns (sns (sns (sns (sns (sns ())))))))
 --m338 (succ (2*3=5) 5+3≡8)
 --m338 (succ ((succ 1*3=2) 2+3≡5) 5+3≡8)
 --m338 (succ ((succ ((succ base) znn)) 2+3≡5) 5+3≡8)
 
--- TODO ALL THE THINGS
+-- TODO: call out to worksheet like a pro{{{
+data ℕ⁺ : Set where
+  one      :      ℕ⁺
+  double   : ℕ⁺ → ℕ⁺
+  double+1 : ℕ⁺ → ℕ⁺
+--}}}TODO: call out to worksheet like a pro
 
+-- Exercise: Define _≈_ : ℕ → ℕ⁺ → Set which represents the (canonical) isomorphism between ℕ and ℕ⁺!*
+data _≈_ : ℕ → ℕ⁺ → Set where
+ -- there is no mapping from 0, TODO: is that right?  THIS MAKES IT NOT AN ISOMORPHISM
+ 1≈1 : 1 ≈ one
+ double : ∀ {m n b} →   m isDoubleOf n  → n ≈ b → m ≈ (double b)
+ double+1 : ∀ {m n b} →   m isDoubleOf n  → n ≈ b → (suc m) ≈ (double+1 b)
+--TODO: is there a way to do this that doesn't need such redundant proofs of doubpleing?
 
---TODO: link back future TODOs
+2≈2 : 2 ≈ (double one) 
+2≈2 = double (ssisDoubleOfs zisDoubleOfz) 1≈1
 
---TODO: thank the creator of this resource
+3≈3 : 3 ≈ (double+1 one) 
+3≈3 = double+1 (ssisDoubleOfs zisDoubleOfz) 1≈1
+
+4≈4 : 4 ≈ (double (double one)) 
+4≈4 = double (ssisDoubleOfs (ssisDoubleOfs zisDoubleOfz)) 2≈2
+
+-- Exercise: Prove that 5 ≈ double+1 (double one) is non-empty!
+5≈5 :  5 ≈ double+1 (double one)
+5≈5 = double+1 (ssisDoubleOfs (ssisDoubleOfs zisDoubleOfz)) 2≈2
+
+-- Exercise: Prove that 4 ≈ double+1 (double one) is empty!
+4≈5 : 4 ≈ (double+1 (double one)) → ⊥
+4≈5 (double+1 (ssisDoubleOfs ()) (double _ 1≈1))  --  really liking the use of underscore right here

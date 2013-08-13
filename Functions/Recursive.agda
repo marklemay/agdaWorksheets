@@ -54,11 +54,13 @@ odd (suc (suc n)) = odd n
 -- Exercise: Define even and odd mutually with the mutual keyword!
 ---TODO: WTF is the mutual keyword?
 
+-- Exercise:
 _≡?_  : ℕ → ℕ → Bool  -- is equal
 0 ≡? 0 = true
 suc n ≡? suc m = n ≡? m
 _ ≡? _ = false
 
+-- Exercise:
 _≤?_  : ℕ → ℕ → Bool  -- is less than or equal
 0 ≤? _ = true
 suc n ≤? suc m = n ≤? m
@@ -67,8 +69,27 @@ _ ≤? _ = false
 open import Sets.Recursive using (ℕ⁺; one; double; double+1; ℕ₂; zero; id)
 
 --Exercise: define the conversion function:
---from : ℕ₂ → ℕ  -- hint: use _*_
---from zero = 0
---from  = 0
+from : ℕ₂ → ℕ  -- hint: use _*_
+from zero = 0
+from (id one) = 1
+from (id (double x)) = 2 * (from (id x))
+from (id (double+1 x)) = 1 + ( 2 * (from (id x)))
 
---TODO: the rest of the the things
+--Exercise: Define ℤ and some operations on it (_+_, _-_, _*_)!
+data ℤ : Set where
+ _/_ : ℕ → ℕ → ℤ -- TODO: not defined minimally, 0/0 is valid
+
+_+ℤ_ :  ℤ → ℤ → ℤ
+(xtop / xbot) +ℤ  (ytop / ybot) =  ((xtop * ybot) + (ytop * xbot)) / (xbot * ybot)
+
+-- TODO: I can do the rest later...
+
+data BinTree : Set where
+  leaf : BinTree
+  node : BinTree → BinTree → BinTree
+
+--Exercise: TODO: define (recursive) mirroring of binary trees!
+
+mirror : BinTree → BinTree
+mirror leaf = leaf
+mirror (node x y) = node (mirror x) (mirror y)

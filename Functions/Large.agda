@@ -23,6 +23,16 @@ f′ {zero} {m} tt = tt
 f′ {suc n} {zero} ()
 f′ {suc n} {suc m} x = f′ {n} {m} x
 
+-- scratch, what the what?
+
+f'′ : {n m : ℕ} → n ≤′ m → n ≤′ suc m
+--f'′_ = tt
+--f'′ tt = tt
+f'′ {zero} {m} tt = tt
+f'′ {suc n} {zero} ()
+f'′ {suc n} {suc m} x = f'′ {n} {m} x
+
+
 _<_ : ℕ → ℕ → Set
 n < m = suc n ≤ m
 

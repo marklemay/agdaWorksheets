@@ -1,3 +1,5 @@
+-- http://people.inf.elte.hu/divip/AgdaTutorial/Functions.Cases.html
+
 module Functions.Cases where
 
 open import Sets.Enumerated using (Bool; true; false)

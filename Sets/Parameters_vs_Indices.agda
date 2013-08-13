@@ -1,4 +1,5 @@
 -- http://people.inf.elte.hu/divip/AgdaTutorial/Sets.Parameters_vs_Indices.html
+
 module Sets.Parameters_vs_Indices where
 
 open import Data.Nat using (ℕ; zero; suc; _≤_; z≤n; s≤s)
@@ -45,7 +46,7 @@ infix 4 _∈_
 
 -- Excercise: Define _⊆_ {A : Set} : List A → List A → Set!
 --TODO: is it ok that there are no paramiters?
-data _⊆_ {A : Set} : List A → List A → Set where
+data _⊆_ {A : Set} :  List A →  List A → Set where
   first⊆ : ∀ {xs} → [] ⊆ xs
   later⊆ : ∀ {xs ys x} → x ∈ ys → xs ⊆ ys → x ∷ xs ⊆ ys
 
@@ -79,9 +80,11 @@ solution12⊆123 = (later⊆ 1∈123) ((later⊆ 2∈123) first⊆)
 2∈12 = later first
 
 
--- Excercise: Prove that 1 ∷ 2 ∷ 3 ∷ [] ⊆ 1 ∷ 2 ∷ [] is false!
-
+-- TODO: Excercise: Prove that 1 ∷ 2 ∷ 3 ∷ [] ⊆ 1 ∷ 2 ∷ [] is false!
 data ⊥ : Set where --TODO: be cool and import this like a pro
+
+123⊆12 : 1 ∷ 2 ∷ 3 ∷ [] ⊆ 1 ∷ 2 ∷ [] → ⊥
+123⊆12 (later⊆ _ (later⊆ _ (later⊆ (later (later ())) _ )) )  
 
 --solution123⊆12 : 1 ∷ 2 ∷ 3 ∷ [] ⊆ 1 ∷ 2 ∷ [] → ⊥
 --solution123⊆12 ( (later⊆ 1∈12) ((later⊆ 2∈12) ()))
