@@ -41,11 +41,15 @@ cong _ refl = refl --uhhh....
 +-left-identity  : ∀ a → 0 + a ≡ a
 +-left-identity _ = refl
 
-
+-- random crach agda intermsion
 stall : ∀ n → ℕ
 stall 0 = 0
+stall 1 = 1
+stall 2 = 2
 stall 5 = 5
-stall x = stall (suc x)
+stall (suc x) = stall (suc x)
+
+
 
 
 --TODO:
