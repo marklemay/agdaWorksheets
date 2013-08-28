@@ -206,23 +206,42 @@ g8 = xturn 2 g7 (s≤s (s≤s (s≤s z≤n)))
 --TODO: given nuetralworst casel game alternatives how can you make your wins ofiscated ( {tye, win in 1, win in2} is less good then {tye, win in 13, win in 20, win in 289}?
 
 
+--As a gentlemens game there is no need for verifiactaion of move validity (yeah right)
+--TODO: paramiterize this by player, There only needs to be 1 stupid!
+--stupidPlayerX : {gs : Vec Square 9} -> {newgs : Vec Square 9} -> (1 ≤ (#ofMoves gs) ) -> Game x gs  -> Game o newgs
+stupidPlayerX : {gs : Vec Square 9} -> Game x gs -> (0 < (#ofMoves gs)) -> Game o (makeMove gs x _ )
+stupidPlayerX {gs} game correct  = xturn 0 game correct
+
+stupidPlayerO : {gs : Vec Square 9} -> Game o gs -> (0 < (#ofMoves gs)) -> Game x (makeMove gs o _ )
+stupidPlayerO {gs} game correct  = oturn 0 game correct
+
+
 --z≤n; s≤s
---TODO: some way to view the board???
+-- some way to view the board!!!
 show : {pp : Player} -> {gs : Vec Square 9} -> Game pp gs -> Vec Square 9
-show start = ( - ∷ - ∷ - ∷
-           - ∷ - ∷ - ∷
-           - ∷ - ∷ - ∷ [] )
---show xturn _ 
-show _ = ( - ∷ - ∷ - ∷
-           - ∷ - ∷ - ∷
-           - ∷ - ∷ - ∷ [] )
+show {_} {gs} _ = gs
+
+getPlayer : {pp : Player} -> {gs : Vec Square 9} -> Game pp gs -> Player
+getPlayer {pp} {_} _ = pp
 
 
-showLen : {len :  ℕ} {A : Set} -> Vec A len -> ℕ
-showLen ? = len
+--two programs enter, one program leaves
+gameMaster : {p : Player } -> {gs : Vec Square 9} --FOR ALL
+ -> ({gs : Vec Square 9} -> Game x gs -> (0 < (#ofMoves gs)) -> Game o (makeMove gs x _ )) --take an x player
+ -> ({gs : Vec Square 9} -> Game o gs -> (0 < (#ofMoves gs)) -> Game x (makeMove gs o _ )) --take an o player
+ -> ( Game p gs)  --Take an initial configuration
+ -> GameCondition --retun a winner --TODO: how do I exclude ongoing?  Should it be excluded structualy?
+gameMaster {_} {gs} _ _ game with (gameCondition gs)
+... | xWin = xWin
+... | oWin = oWin
+... | draw = draw
+... | ongoing  with #ofMoves gs
+... | 0 = draw --TODO: really just prove this state doesn't exist, it will always be covered by gameCondition gs = draw
+gameMaster {x} {gs} fx fo game | ongoing | suc nn = gameMaster (fx) (fo) (fx game (s≤s z≤n)) -- x move
+gameMaster {o} {gs} fx fo game | ongoing | suc nn = gameMaster (fx) (fo) (fo game (s≤s z≤n)) -- o move
 
-showType : {len :  ℕ} {A : Set} -> Vec A len -> Set
-showType ? = A
+--TODO: find out what all this fucking yellow highlighting means
+
  
 data GameOver :  Vec Square 9 -> Set where
  draw : (gs : Vec Square 9) -> (count- gs) == 0 -> GameOver gs
